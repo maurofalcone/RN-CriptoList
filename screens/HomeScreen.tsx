@@ -1,4 +1,5 @@
 import React from "react";
+import { useForm, NestedValue, Control } from "react-hook-form";
 import { StyleSheet, Text, View } from "react-native";
 import { TextField, Button } from "../components/ui";
 import { HomeScreenRouteProps } from "../types/Screens";
@@ -10,16 +11,30 @@ import { HomeScreenRouteProps } from "../types/Screens";
 
 const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
   console.log(navigation);
+  const { control, handleSubmit } = useForm();
+  const onSubmit = (data: any) => {
+    console.log(data);
+    // move to list
+    navigation.navigate("List");
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome</Text>
       <Text></Text>
       <View style={styles.inputsContainer}>
-        <TextField placeholder="Enter your name" />
-        <TextField placeholder="Enter your passowrd" />
+        <TextField
+          name="name"
+          placeholder="Enter your name"
+          control={control}
+        />
+        <TextField
+          name="password"
+          placeholder="Enter your passowrd"
+          control={control}
+        />
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Sign in" onPress={() => alert("List")}>
+        <Button title="Sign in" onPress={handleSubmit(onSubmit)}>
           Sign in
         </Button>
       </View>
