@@ -8,6 +8,7 @@ import ListScreen from "./screens/ListScreen";
 import DetailScreen from "./screens/DetailScreen";
 import WalletScreen from "./screens/WalletScreen";
 import { Logo } from "./components/ui";
+import AuthContextProvider from "./context/AuthContext";
 
 /**
  * Use `HomeScreen` as the initial route
@@ -18,23 +19,25 @@ import { Logo } from "./components/ui";
 
 const Stack = createStackNavigator();
 
-function App() {
+const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="ToDo" component={ToDoScreen} />
-        <Stack.Screen name="List" component={ListScreen} />
-        <Stack.Screen name="Detail" component={DetailScreen} />
-        <Stack.Screen name="Wallet" component={WalletScreen} />
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerTitle: Logo }}
-        />
-      </Stack.Navigator>
-      <StatusBar style="auto" />
-    </NavigationContainer>
+    <AuthContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="ToDo" component={ToDoScreen} />
+          <Stack.Screen name="List" component={ListScreen} />
+          <Stack.Screen name="Detail" component={DetailScreen} />
+          <Stack.Screen name="Wallet" component={WalletScreen} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerTitle: Logo }}
+          />
+        </Stack.Navigator>
+        <StatusBar style="auto" />
+      </NavigationContainer>
+    </AuthContextProvider>
   );
-}
+};
 
 export default App;
