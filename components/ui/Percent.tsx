@@ -2,24 +2,30 @@ import React, { FC } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import GreenArrowUp from "./GreenArrowUp";
 import RedArrowDown from "./RedArrowDown";
+import { toFixedNoRounding } from "../../helpers/Formatters";
+import { COLOR_PALETTE } from "../../helpers/Constants";
 
 type PercentProps = {
   value: string;
-  positive: boolean | null;
+  isPositive: boolean | null;
 };
 
-const Percent: FC<PercentProps> = ({ value, positive }) => (
-  <View style={styles(positive).wrapper}>
-    {positive ? <GreenArrowUp /> : <RedArrowDown />}
-    <Text style={styles(positive).value}>$ {value}</Text>
+const Percent: FC<PercentProps> = ({ value, isPositive }) => (
+  <View style={styles(isPositive).wrapper}>
+    {isPositive ? <GreenArrowUp /> : <RedArrowDown />}
+    <Text style={styles(isPositive).value}>
+      {toFixedNoRounding(value, 2)} %
+    </Text>
   </View>
 );
 
-const styles = (positive: boolean | null) =>
+const styles = (isPositive: boolean | null) =>
   StyleSheet.create({
     wrapper: {
       borderRadius: 12,
-      backgroundColor: positive ? "#D1FAE5" : "#FDDCDC",
+      backgroundColor: isPositive
+        ? COLOR_PALETTE.bidFaded
+        : COLOR_PALETTE.askFaded,
       height: 24,
       width: 73,
       alignItems: "center",
@@ -27,7 +33,7 @@ const styles = (positive: boolean | null) =>
       flexDirection: "row",
     },
     value: {
-      color: positive ? "#065F46" : "#A50606",
+      color: isPositive ? COLOR_PALETTE.bid : COLOR_PALETTE.ask,
       marginLeft: 5,
     },
   });

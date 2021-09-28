@@ -1,5 +1,6 @@
 import React, { FC, ComponentProps } from "react";
 import { StyleSheet, TouchableHighlight, View, Text } from "react-native";
+import { COLOR_PALETTE } from "../../helpers/Constants";
 
 const Button: FC<
   ComponentProps<typeof TouchableHighlight> & { title: string }
@@ -18,7 +19,7 @@ const Button: FC<
 const styles = (isDisabled: boolean | null) =>
   StyleSheet.create({
     wrapper: {
-      backgroundColor: "#1FC4DB",
+      backgroundColor: COLOR_PALETTE.primary,
       height: 42,
       width: 343,
       borderRadius: 6,
@@ -27,7 +28,7 @@ const styles = (isDisabled: boolean | null) =>
       opacity: isDisabled ? 0.5 : 1,
     },
     text: {
-      color: "#FFF",
+      color: COLOR_PALETTE.white,
       fontSize: 16,
       lineHeight: 24,
     },

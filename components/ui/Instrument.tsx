@@ -6,17 +6,19 @@ import {
   Text,
   Platform,
 } from "react-native";
+import { currencyToNumber, isPositive } from "../../helpers/Formatters";
 import FormattedPrice from "./FormattedPrice";
 import Percent from "./Percent";
+import { COLOR_PALETTE } from "../../helpers/Constants";
 
 const Instrument: FC<
   ComponentProps<typeof TouchableOpacity> & {
     security: string;
     symbol: string;
     rank: string;
-    percentage: string;
+    changePercentage: string;
   }
-> = ({ children, security, symbol, percentage, rank, ...rest }) => (
+> = ({ children, security, symbol, changePercentage, rank, ...rest }) => (
   <View style={styles.mainWrapper}>
     <TouchableOpacity style={styles.wrapper} {...rest}>
       <View style={styles.groupsContainer}>
@@ -33,7 +35,10 @@ const Instrument: FC<
           <FormattedPrice currency="USD" value="25,221.22" />
         </View>
         <View style={styles.secondGroup}>
-          <Percent positive={false} value="6.5" />
+          <Percent
+            isPositive={isPositive(currencyToNumber(changePercentage))}
+            value={changePercentage}
+          />
         </View>
       </View>
     </TouchableOpacity>
@@ -43,10 +48,10 @@ const Instrument: FC<
 const styles = StyleSheet.create({
   mainWrapper: {
     borderRadius: 8,
-    backgroundColor: "#FFF",
+    backgroundColor: COLOR_PALETTE.white,
     ...Platform.select({
       ios: {
-        shadowColor: "#000",
+        shadowColor: COLOR_PALETTE.black,
         shadowOpacity: 0.1,
         shadowRadius: 2,
         shadowOffset: {
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
   },
   position: {
     fontSize: 14,
-    color: "#6B7280",
+    color: COLOR_PALETTE.lightGray,
   },
 });
 

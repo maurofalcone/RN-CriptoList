@@ -3,11 +3,15 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableWithoutFeedback,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
-import axios from "axios";
 import Instrument from "../components/ui/Instrument";
+import { useQuery } from "react-query";
+import { fetchInstrumentList } from "../queries/Instruments/query";
+import { IInstrument } from "../types/Instrument";
+import { COLOR_PALETTE } from "../helpers/Constants";
+import { APIResponse } from "../types/Api";
 
 /**
  * ToDo: Feed the list using fetching data from a RESTful API
@@ -20,43 +24,65 @@ import Instrument from "../components/ui/Instrument";
  * 💯 Handle loading and error scenarios, always
  */
 
-export default function ListScreen() {
-  const data = mockData.data;
+const ListScreen = () => {
+  const {
+    data: response,
+    error,
+    isError,
+    isLoading,
+  } = useQuery<APIResponse<IInstrument>, { message: string }>(
+    "instruments",
+    fetchInstrumentList
+  );
 
-  const ListItem = ({ item }: any) => {
+  if (isLoading) {
     return (
-      <View style={styles.itemContainer}>
-        {/* ToDo: Link to `DetailScreen` passing `id` as parameter */}
-        <Instrument
-          percentage="6.5"
-          rank={"1"}
-          security="Bitcon"
-          symbol="BTC"
-          onPress={() => alert("Go to Detail")}
-        />
+      <View style={styles.loadingOverlay}>
+        <ActivityIndicator color={COLOR_PALETTE.primary} size="large" />
       </View>
     );
-  };
-
+  }
+  if (isError) {
+    return (
+      <View>
+        <Text>{error && error.message}</Text>
+      </View>
+    );
+  }
+  if (response) {
+    console.log(response.data);
+  }
   return (
     <View style={styles.container}>
-      {data && data.length > 0 ? (
+      {response && response.data.length > 0 && (
         <ScrollView>
-          {data.map((item) => (
-            <ListItem key={item.id} item={item} />
-          ))}
+          {React.Children.toArray(
+            response.data.map((item) => (
+              <View style={styles.itemContainer}>
+                <Instrument
+                  key={item.id}
+                  changePercentage={item.changePercent24Hr}
+                  rank={item.rank}
+                  security={item.name}
+                  symbol={item.symbol}
+                />
+              </View>
+            ))
+          )}
         </ScrollView>
-      ) : (
-        <Text>Loading</Text>
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 8,
+  },
+  loadingOverlay: {
+    flex: 1,
+    justifyContent: "center",
   },
   illustration: {
     width: 50,
@@ -68,50 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mockData = {
-  data: [
-    {
-      id: "bitcoin",
-      rank: "1",
-      symbol: "BTC",
-      name: "Bitcoin",
-      supply: "18699443.0000000000000000",
-      maxSupply: "21000000.0000000000000000",
-      marketCapUsd: "1015247880827.1353075029297279",
-      volumeUsd24Hr: "29060906818.4485396840769794",
-      priceUsd: "54292.9477004815227653",
-      changePercent24Hr: "-6.5116870123483020",
-      vwap24Hr: "55997.2133851391811930",
-      explorer: "https://blockchain.info/",
-    },
-    {
-      id: "ethereum",
-      rank: "2",
-      symbol: "ETH",
-      name: "Ethereum",
-      supply: "115737290.0615000000000000",
-      maxSupply: null,
-      marketCapUsd: "386628811693.0624014790470075",
-      volumeUsd24Hr: "31432181076.4195139481844396",
-      priceUsd: "3340.5725284186038137",
-      changePercent24Hr: "1.1359859562693353",
-      vwap24Hr: "3352.4239757346908390",
-      explorer: "https://etherscan.io/",
-    },
-    {
-      id: "binance-coin",
-      rank: "3",
-      symbol: "BNB",
-      name: "Binance Coin",
-      supply: "153432897.0000000000000000",
-      maxSupply: "170532785.0000000000000000",
-      marketCapUsd: "96293024995.0299971487645969",
-      volumeUsd24Hr: "3662164344.1704711620723615",
-      priceUsd: "627.5904768651405777",
-      changePercent24Hr: "-7.3482646947958675",
-      vwap24Hr: "650.8946548822847374",
-      explorer:
-        "https://etherscan.io/token/0xB8c77482e45F1F44dE1745F52C74426C631bDD52",
-    },
-  ],
-};
+export default ListScreen;

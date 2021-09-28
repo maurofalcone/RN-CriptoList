@@ -8,6 +8,7 @@ import { IAuthContext } from "../types/Context";
 import { IUser } from "../types/User";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { COLOR_PALETTE } from "../helpers/Constants";
 /* 
   Implement form using any user/pass combination 
   Store data using React context
@@ -112,7 +113,7 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: COLOR_PALETTE.white,
     alignItems: "center",
     padding: 124,
     height: 217,
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   errorText: {
-    color: "#FF0000",
+    color: COLOR_PALETTE.error,
     lineHeight: 20,
     textAlign: "center",
     marginBottom: 20,

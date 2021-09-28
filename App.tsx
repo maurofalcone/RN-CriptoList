@@ -9,6 +9,7 @@ import DetailScreen from "./screens/DetailScreen";
 import WalletScreen from "./screens/WalletScreen";
 import { Logo } from "./components/ui";
 import AuthContextProvider from "./context/AuthContext";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 /**
  * Use `HomeScreen` as the initial route
@@ -18,25 +19,27 @@ import AuthContextProvider from "./context/AuthContext";
  */
 
 const Stack = createStackNavigator();
-
+const queryClient = new QueryClient();
 const App = () => {
   return (
-    <AuthContextProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="List">
-          <Stack.Screen name="ToDo" component={ToDoScreen} />
-          <Stack.Screen name="List" component={ListScreen} />
-          <Stack.Screen name="Detail" component={DetailScreen} />
-          <Stack.Screen name="Wallet" component={WalletScreen} />
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ headerTitle: Logo }}
-          />
-        </Stack.Navigator>
-        <StatusBar style="auto" />
-      </NavigationContainer>
-    </AuthContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="List">
+            <Stack.Screen name="ToDo" component={ToDoScreen} />
+            <Stack.Screen name="List" component={ListScreen} />
+            <Stack.Screen name="Detail" component={DetailScreen} />
+            <Stack.Screen name="Wallet" component={WalletScreen} />
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ headerTitle: Logo }}
+            />
+          </Stack.Navigator>
+          <StatusBar style="auto" />
+        </NavigationContainer>
+      </AuthContextProvider>
+    </QueryClientProvider>
   );
 };
 
