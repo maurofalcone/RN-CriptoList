@@ -11,4 +11,12 @@ export const COLOR_PALETTE = {
   darkGray: "#D1D5DB",
   lightGray: "#6B7280",
   black: "#000000",
+  fontBlack: "#0A132C",
+};
+
+export const ROUTES = {
+  Detail: "Detail",
+  List: "List",
+  ToDo: "ToDo",
+  Wallet: "Wallet",
 };

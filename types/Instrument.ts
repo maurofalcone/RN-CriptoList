@@ -3,9 +3,9 @@ export interface IInstrument {
   rank: string;
   symbol: string;
   name: string;
-  supply: string;
-  maxSupply: string;
-  marketCapUsd: string;
+  supply?: string;
+  maxSupply?: string;
+  marketCapUsd?: string;
   volumeUsd24Hr: string;
   priceUsd: string;
   changePercent24Hr: string;

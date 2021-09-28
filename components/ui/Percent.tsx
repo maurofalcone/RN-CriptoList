@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import GreenArrowUp from "./GreenArrowUp";
 import RedArrowDown from "./RedArrowDown";
-import { toFixedNoRounding } from "../../helpers/Formatters";
+import currency from "currency.js";
 import { COLOR_PALETTE } from "../../helpers/Constants";
 
 type PercentProps = {
@@ -14,7 +14,7 @@ const Percent: FC<PercentProps> = ({ value, isPositive }) => (
   <View style={styles(isPositive).wrapper}>
     {isPositive ? <GreenArrowUp /> : <RedArrowDown />}
     <Text style={styles(isPositive).value}>
-      {toFixedNoRounding(value, 2)} %
+      {`${currency(value, { symbol: "" }).format()} %`}
     </Text>
   </View>
 );

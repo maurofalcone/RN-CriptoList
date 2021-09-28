@@ -1,20 +1,19 @@
 import React, { FC, ComponentProps } from "react";
-import { StyleSheet, TouchableHighlight, View, Text } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { COLOR_PALETTE } from "../../helpers/Constants";
 
-const Button: FC<
-  ComponentProps<typeof TouchableHighlight> & { title: string }
-> = ({ children, title, disabled = false, ...rest }) => (
-  <TouchableHighlight
-    disabled={disabled}
-    style={styles(disabled).wrapper}
-    {...rest}
-  >
-    <View>
-      <Text style={styles(disabled).text}>{title}</Text>
-    </View>
-  </TouchableHighlight>
-);
+const Button: FC<ComponentProps<typeof TouchableOpacity> & { title: string }> =
+  ({ children, title, disabled = false, ...rest }) => (
+    <TouchableOpacity
+      disabled={disabled}
+      style={styles(disabled).wrapper}
+      {...rest}
+    >
+      <View>
+        <Text style={styles(disabled).text}>{title}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
 const styles = (isDisabled: boolean | null) =>
   StyleSheet.create({

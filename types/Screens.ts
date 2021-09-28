@@ -1,10 +1,13 @@
 import { StackNavigationProp } from "@react-navigation/stack";
+import { RouteProp } from "@react-navigation/native";
 
 type RootStackParamList = {
   Home: undefined;
   Wallet: undefined;
   List: undefined;
-  Detail: undefined;
+  Detail: {
+    id: string;
+  };
   ToDo: undefined;
 };
 
@@ -18,6 +21,7 @@ export type WalletScreenRouteProps = {
 
 export type DetailScreenRouteProps = {
   navigation: StackNavigationProp<RootStackParamList, "Detail">;
+  route: RouteProp<RootStackParamList, "Detail">;
 };
 
 export type ListScreenRouteProps = {
@@ -25,5 +29,5 @@ export type ListScreenRouteProps = {
 };
 
 export type ToDoScreenRouteProps = {
-  navigation: StackNavigationProp<RootStackParamList, "List">;
+  navigation: StackNavigationProp<RootStackParamList, "ToDo">;
 };
