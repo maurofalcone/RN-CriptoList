@@ -1,5 +1,12 @@
 import React, { FC, ComponentProps } from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  Platform,
+} from "react-native";
+import FormattedPrice from "./FormattedPrice";
 import Percent from "./Percent";
 
 const Instrument: FC<
@@ -23,8 +30,7 @@ const Instrument: FC<
       </View>
       <View style={styles.groupsContainer}>
         <View style={styles.firstGroup}>
-          <Text style={styles.price}>{`$ ${"54,292.95"}`}</Text>
-          <Text style={styles.currency}>USD</Text>
+          <FormattedPrice currency="USD" value="25,221.22" />
         </View>
         <View style={styles.secondGroup}>
           <Percent positive={false} value="6.5" />
@@ -38,6 +44,20 @@ const styles = StyleSheet.create({
   mainWrapper: {
     borderRadius: 8,
     backgroundColor: "#FFF",
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        shadowOffset: {
+          width: 1,
+          height: 1,
+        },
+      },
+      android: {
+        elevation: 1,
+      },
+    }),
   },
   wrapper: {
     height: 100,
@@ -73,18 +93,6 @@ const styles = StyleSheet.create({
   position: {
     fontSize: 14,
     color: "#6B7280",
-  },
-  currency: {
-    fontSize: 14,
-    color: "#6B7280",
-    marginTop: 10,
-    marginLeft: 5,
-  },
-  price: {
-    fontWeight: "600",
-    lineHeight: 32,
-    fontSize: 24,
-    color: "#019FB5",
   },
 });
 
