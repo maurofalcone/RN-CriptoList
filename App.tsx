@@ -23,7 +23,7 @@ const App = () => {
   return (
     <AuthContextProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="List">
           <Stack.Screen name="ToDo" component={ToDoScreen} />
           <Stack.Screen name="List" component={ListScreen} />
           <Stack.Screen name="Detail" component={DetailScreen} />
