@@ -1,6 +1,14 @@
 import React, { useCallback, useContext, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { TextField, Button } from "../components/ui";
 import { AuthContext } from "../context/AuthContext";
 import { HomeScreenRouteProps } from "../types/Screens";
@@ -9,6 +17,7 @@ import { IUser } from "../types/User";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { COLOR_PALETTE } from "../helpers/Constants";
+import { Platform } from "react-native";
 /* 
   Implement form using any user/pass combination 
   Store data using React context
@@ -81,33 +90,40 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
     return shouldDisable;
   };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome</Text>
-      <Text></Text>
-      <View style={styles.inputsContainer}>
-        <TextField
-          name="username"
-          placeholder="Enter your name"
-          control={control}
-        />
-        <TextField
-          name="password"
-          placeholder="Enter your passowrd"
-          control={control}
-          autoCapitalize="none"
-          secureTextEntry
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <Text style={styles.errorText}>{genericError}</Text>
-        <Button
-          isLoading={isLoading}
-          title="Sign In"
-          onPress={handleSubmit(onSubmit)}
-          disabled={isSubmitDisabled()}
-        />
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <Pressable onPress={Keyboard.dismiss}>
+          <Text style={styles.title}>Welcome</Text>
+          <Text></Text>
+          <View style={styles.inputsContainer}>
+            <TextField
+              name="username"
+              placeholder="Enter your name"
+              control={control}
+            />
+            <TextField
+              name="password"
+              placeholder="Enter your passowrd"
+              control={control}
+              autoCapitalize="none"
+              secureTextEntry
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Text style={styles.errorText}>{genericError}</Text>
+            <Button
+              isLoading={isLoading}
+              title="Sign In"
+              onPress={handleSubmit(onSubmit)}
+              disabled={isSubmitDisabled()}
+            />
+          </View>
+        </Pressable>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -116,8 +132,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLOR_PALETTE.white,
     alignItems: "center",
-    padding: 124,
-    height: 217,
+    justifyContent: "center",
   },
   title: {
     fontSize: 32,

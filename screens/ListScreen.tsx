@@ -16,17 +16,6 @@ import { APIResponse } from "../types/Api";
 import { ListScreenRouteProps } from "../types/Screens";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 
-/**
- * ToDo: Feed the list using fetching data from a RESTful API
- *
- * API: COINCAP API 2.0
- * API Docs: https://api.coincap.io/v2/assets
- * API Example: https://docs.coincap.io/#89deffa0-ab03-4e0a-8d92-637a857d2c91
- *
- * 💯 Using axios great plus
- * 💯 Handle loading and error scenarios, always
- */
-
 const ListScreen: React.FC<ListScreenRouteProps> = ({ navigation }) => {
   const {
     data: response,

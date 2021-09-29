@@ -7,7 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import ListScreen from "./screens/ListScreen";
 import DetailScreen from "./screens/DetailScreen";
 import WalletScreen from "./screens/WalletScreen";
-import { Logo } from "./components/ui";
+import { Logo, HeaderGoBackButton } from "./components/icons";
 import AuthContextProvider from "./context/AuthContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ROUTES } from "./helpers/Constants";
@@ -27,10 +27,34 @@ const App = () => {
       <AuthContextProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName={ROUTES.Home}>
-            <Stack.Screen name={ROUTES.ToDo} component={ToDoScreen} />
-            <Stack.Screen name={ROUTES.List} component={ListScreen} />
-            <Stack.Screen name={ROUTES.Detail} component={DetailScreen} />
-            <Stack.Screen name={ROUTES.Wallet} component={WalletScreen} />
+            <Stack.Screen
+              name={ROUTES.ToDo}
+              component={ToDoScreen}
+              options={{
+                headerLeft: HeaderGoBackButton,
+              }}
+            />
+            <Stack.Screen
+              name={ROUTES.List}
+              component={ListScreen}
+              options={{
+                headerLeft: HeaderGoBackButton,
+              }}
+            />
+            <Stack.Screen
+              name={ROUTES.Detail}
+              component={DetailScreen}
+              options={{
+                headerLeft: HeaderGoBackButton,
+              }}
+            />
+            <Stack.Screen
+              name={ROUTES.Wallet}
+              component={WalletScreen}
+              options={{
+                headerLeft: HeaderGoBackButton,
+              }}
+            />
             <Stack.Screen
               name={ROUTES.Home}
               component={HomeScreen}

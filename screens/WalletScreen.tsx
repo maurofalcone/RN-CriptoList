@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableWithoutFeedback,
+  SafeAreaView,
 } from "react-native";
 import {
   BottomTabBarProps,
@@ -15,13 +16,6 @@ import { AuthContext } from "../context/AuthContext";
 import { BottomTabParamList } from "../types/Screens";
 import { COLOR_PALETTE } from "../helpers/Constants";
 import { Card } from "../components/ui";
-/**
- * ToDo: Create a Bottom Tab Navigation for: Account and Partners sections
- * ToDo: In the Account tab, print the name submited in the Sign-In form
- * ToDo: In the Partners tab, manually list some apps you create
- *
- * 💯 Published apps where you been involved is great plus
- */
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -47,7 +41,6 @@ const TabButton = ({ state, descriptors, navigation }: BottomTabBarProps) => {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            // The `merge: true` option makes sure that the params inside the tab screen are preserved
             navigation.navigate(route.name);
           }
         };
@@ -61,11 +54,14 @@ const TabButton = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
         return (
           <View
+            key={index}
             style={{
               flex: 1,
               backgroundColor: COLOR_PALETTE.white,
               justifyContent: "space-around",
               flexDirection: "row",
+              borderTopWidth: 1,
+              borderTopColor: COLOR_PALETTE.darkGray,
             }}
           >
             <View
@@ -122,14 +118,14 @@ function AccountSection() {
   const context = useContext(AuthContext);
   const username = context?.loggedInUser || "-";
   return (
-    <View style={accountStyles.container}>
+    <SafeAreaView style={accountStyles.container}>
       <Image
         style={accountStyles.illustration}
         source={require("../assets/finish-illustration.png")}
       />
       <Text style={accountStyles.title}>Hello, {username}</Text>
       <Text>Glad you are here, hope to see you soon.</Text>
-    </View>
+    </SafeAreaView>
   );
 }
 const accountStyles = StyleSheet.create({
@@ -208,7 +204,7 @@ function PartnersSection() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Partners</Text>
       <Text style={styles.subtitle}>Here are some apps I was involved in:</Text>
       {partnerList && partnerList.length > 0 ? (
@@ -220,7 +216,7 @@ function PartnersSection() {
       ) : (
         <Text>No Apps 🙈</Text>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -235,7 +231,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
-    marginBottom: 24,
+    margin: 24,
   },
   subtitle: {
     fontSize: 16,

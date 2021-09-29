@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, SafeAreaView } from "react-native";
 import { useQuery } from "react-query";
 import { Button, Instrument, LoadingOverlay } from "../components/ui";
 import { COLOR_PALETTE, ROUTES } from "../helpers/Constants";
@@ -37,7 +37,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {item ? (
         <View style={styles.contentWrapper}>
           <Instrument
@@ -62,7 +62,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
       ) : (
         <LoadingOverlay />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
