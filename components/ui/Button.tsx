@@ -1,19 +1,28 @@
 import React, { FC, ComponentProps } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import LoadingOverlay from "./LoadingOverlay";
 import { COLOR_PALETTE } from "../../helpers/Constants";
 
-const Button: FC<ComponentProps<typeof TouchableOpacity> & { title: string }> =
-  ({ children, title, disabled = false, ...rest }) => (
-    <TouchableOpacity
-      disabled={disabled}
-      style={styles(disabled).wrapper}
-      {...rest}
-    >
-      <View>
+const Button: FC<
+  ComponentProps<typeof TouchableOpacity> & {
+    title: string;
+    isLoading?: boolean;
+  }
+> = ({ children, title, disabled = false, isLoading = false, ...rest }) => (
+  <TouchableOpacity
+    disabled={disabled}
+    style={styles(disabled).wrapper}
+    {...rest}
+  >
+    <View>
+      {isLoading ? (
+        <LoadingOverlay color={COLOR_PALETTE.white} size="small" />
+      ) : (
         <Text style={styles(disabled).text}>{title}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+      )}
+    </View>
+  </TouchableOpacity>
+);
 
 const styles = (isDisabled: boolean | null) =>
   StyleSheet.create({

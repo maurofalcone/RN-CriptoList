@@ -7,16 +7,28 @@ export const AuthContext = createContext<IAuthContext | null>(null);
 
 const AuthContextProvider: FC = ({ children }) => {
   const [loggedInUser, setUser] = useState("");
-  const saveLoggedInUser = async (params: IUser) => {
+  const login = async (params: IUser) => {
     setUser(params.username);
     await SecureStore.setItemAsync(params.username, params.password);
+    // fake login request
+    return await new Promise((resolve) => {
+      setTimeout(() => {
+        if (
+          params.username.toUpperCase() === "MAURO" &&
+          params.password.toUpperCase() === "TRUENORTH"
+        ) {
+          resolve(true);
+        }
+        resolve(false);
+      }, 500);
+    });
   };
 
   return (
     <AuthContext.Provider
       value={{
         loggedInUser,
-        saveLoggedInUser,
+        login,
       }}
     >
       {children}

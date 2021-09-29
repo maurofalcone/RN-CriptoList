@@ -23,23 +23,19 @@ interface DetailScreenProps extends DetailScreenRouteProps {
   id: string;
 }
 
-const DetailScreen: React.FC<DetailScreenProps> = ({ route }) => {
+const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
   /* ToDo: Get the id param from the route */
   const {
     data: response,
-    refetch,
     isError,
     error,
     isLoading,
   } = useQuery<APIResponse<IInstrument>, { message: string }>(
-    "instrumentDetails",
-    () => fetchItemById(route.params.id)
+    route.params.id,
+    () => fetchItemById(route.params.id),
+    { enabled: !!route.params.id }
   );
   const item = response?.data;
-
-  const handleOnPress = () => {
-    refetch();
-  };
 
   if (isLoading) {
     return <LoadingOverlay />;
@@ -68,7 +64,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ route }) => {
             marketCapUsd={item.marketCapUsd}
             maxSupply={item.maxSupply}
             rank={item.rank}
-            onPress={handleOnPress}
           />
           <View style={styles.btnContainer}>
             <Button title="My Wallet" onPress={() => alert("Wallet")} />
@@ -99,19 +94,3 @@ const styles = StyleSheet.create({
 });
 
 export default DetailScreen;
-
-const mockData = {
-  data: {
-    id: "bitcoin",
-    rank: "1",
-    symbol: "BTC",
-    name: "Bitcoin",
-    supply: "17193925.0000000000000000",
-    maxSupply: "21000000.0000000000000000",
-    marketCapUsd: "119179791817.6740161068269075",
-    volumeUsd24Hr: "2928356777.6066665425687196",
-    priceUsd: "6931.5058555666618359",
-    changePercent24Hr: "-0.8101417214350335",
-    vwap24Hr: "7175.0663247679233209",
-  },
-};

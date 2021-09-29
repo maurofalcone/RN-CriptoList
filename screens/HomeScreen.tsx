@@ -51,15 +51,13 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
     try {
       setGenericError("");
       toggleLoading();
-      const { saveLoggedInUser } = authContext;
-      if (
-        data.username.toUpperCase() === "MAURO" &&
-        data.password.toUpperCase() === "TRUENORTH"
-      ) {
-        await saveLoggedInUser({
-          username: data.username,
-          password: data.password,
-        });
+      const { login } = authContext;
+      const response = await login({
+        username: data.username,
+        password: data.password,
+      });
+      console.log(response, "RESPONSE");
+      if (response) {
         toggleLoading();
         navigation.navigate("List");
       } else {
@@ -101,7 +99,8 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <Text style={styles.errorText}>{genericError}</Text>
         <Button
-          title={!isLoading ? "Sign In" : "Loading"}
+          isLoading={isLoading}
+          title="Sign In"
           onPress={handleSubmit(onSubmit)}
           disabled={isSubmitDisabled()}
         />
@@ -135,6 +134,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     textAlign: "center",
     marginBottom: 20,
+    height: 20,
   },
 });
 

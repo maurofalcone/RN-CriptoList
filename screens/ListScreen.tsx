@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   StyleSheet,
   Text,
   View,
   FlatList,
-  ActivityIndicator,
   SafeAreaView,
   RefreshControl,
 } from "react-native";
@@ -16,6 +15,7 @@ import { COLOR_PALETTE } from "../helpers/Constants";
 import { APIResponse } from "../types/Api";
 import { ListScreenRouteProps } from "../types/Screens";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
+import useMemo from "react";
 
 /**
  * ToDo: Feed the list using fetching data from a RESTful API
@@ -40,11 +40,28 @@ const ListScreen: React.FC<ListScreenRouteProps> = ({ navigation }) => {
     fetchInstrumentList
   );
 
-  const handleOnPress = (id: string) => {
-    navigation.navigate("Detail", {
-      id,
-    });
-  };
+  const handleOnPress = useCallback(
+    (id: string) => {
+      navigation.navigate("Detail", {
+        id,
+      });
+    },
+    [navigation]
+  );
+
+  const renderInstrument = ({ item }: { item: IInstrument }) => (
+    <View style={styles.itemContainer}>
+      <Instrument
+        onPress={() => handleOnPress(item.id)}
+        key={item.id}
+        changePercentage={item.changePercent24Hr}
+        rank={item.rank}
+        name={item.name}
+        symbol={item.symbol}
+        price={item.priceUsd}
+      />
+    </View>
+  );
 
   if (isLoading) {
     return <LoadingOverlay />;
@@ -72,20 +89,11 @@ const ListScreen: React.FC<ListScreenRouteProps> = ({ navigation }) => {
             />
           }
           data={response.data}
-          renderItem={({ item }) => (
-            <View style={styles.itemContainer}>
-              <Instrument
-                onPress={() => handleOnPress(item.id)}
-                key={item.id}
-                changePercentage={item.changePercent24Hr}
-                rank={item.rank}
-                name={item.name}
-                symbol={item.symbol}
-                price={item.priceUsd}
-              />
-            </View>
-          )}
+          renderItem={renderInstrument}
           keyExtractor={(item) => item.id}
+          removeClippedSubviews
+          maxToRenderPerBatch={8}
+          windowSize={30}
         />
       )}
     </SafeAreaView>

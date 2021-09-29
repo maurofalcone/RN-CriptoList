@@ -2,6 +2,6 @@ import React from "react";
 import { IUser } from "./User";
 
 export interface IAuthContext {
-  saveLoggedInUser: (params: IUser) => Promise<void>;
+  login: (params: IUser) => Promise<unknown>;
   loggedInUser: string;
 }

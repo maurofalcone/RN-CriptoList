@@ -25,7 +25,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="List">
+          <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="ToDo" component={ToDoScreen} />
             <Stack.Screen name="List" component={ListScreen} />
             <Stack.Screen name="Detail" component={DetailScreen} />

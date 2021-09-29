@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps } from "react";
+import React, { FC, ComponentProps, useMemo } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -31,73 +31,93 @@ interface InstrumentProps
   price: string;
 }
 
-const Instrument: FC<InstrumentProps> = ({
-  children,
-  name,
-  symbol,
-  changePercentage,
-  rank,
-  showDetails = false,
-  supply = "0.00",
-  maxSupply = "0.00",
-  marketCapUsd = "0.00",
-  price,
-  ...rest
-}) => (
-  <View style={styles().mainWrapper}>
-    <TouchableOpacity style={styles(showDetails).wrapper} {...rest}>
-      <View>
-        <View style={styles().groupsContainer}>
-          <View style={styles().firstGroup}>
-            <Text style={styles().symbol}>{symbol}</Text>
-            <Text style={styles().security}>{` - ${name}`}</Text>
+class Instrument extends React.PureComponent<InstrumentProps> {
+  constructor(props: InstrumentProps) {
+    super(props);
+  }
+  render() {
+    const {
+      children,
+      name,
+      symbol,
+      changePercentage,
+      rank,
+      showDetails = false,
+      supply = "0.00",
+      maxSupply = "0.00",
+      marketCapUsd = "0.00",
+      price,
+      ...rest
+    } = this.props;
+    const formattedSupply = currency(supply, { symbol: "" }).format();
+    const formattedMaxSupply = currency(maxSupply, { symbol: "" }).format();
+    return (
+      <View style={styles().mainWrapper}>
+        <TouchableOpacity style={styles(showDetails).wrapper} {...rest}>
+          <View>
+            <View style={styles().groupsContainer}>
+              <View style={styles().firstGroup}>
+                <Text style={styles().symbol}>{symbol}</Text>
+                <Text style={styles().security}>{` - ${name}`}</Text>
+              </View>
+              <View style={styles().secondGroup}>
+                <Text style={styles().position}>#{rank}</Text>
+              </View>
+            </View>
+            <View style={styles().groupsContainer}>
+              <View style={styles().firstGroup}>
+                <FormattedPrice currencySymbol="USD" value={price} />
+              </View>
+              <View style={styles().secondGroup}>
+                <Percent
+                  isPositive={isPositive(currency(changePercentage))}
+                  value={changePercentage}
+                />
+              </View>
+            </View>
           </View>
-          <View style={styles().secondGroup}>
-            <Text style={styles().position}>#{rank}</Text>
-          </View>
-        </View>
-        <View style={styles().groupsContainer}>
-          <View style={styles().firstGroup}>
-            <FormattedPrice currencySymbol="USD" value={price} />
-          </View>
-          <View style={styles().secondGroup}>
-            <Percent
-              isPositive={isPositive(currency(changePercentage))}
-              value={changePercentage}
-            />
-          </View>
-        </View>
+          {showDetails && (
+            <View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  height: 30,
+                }}
+              >
+                <Text>Supply {formattedSupply}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  height: 30,
+                }}
+              >
+                <Text>Max Supply {formattedMaxSupply}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  height: 30,
+                }}
+              >
+                <Text>Market Cap </Text>
+                <FormattedPrice
+                  color={COLOR_PALETTE.fontBlack}
+                  size="small"
+                  currencySymbol="USD"
+                  value={marketCapUsd}
+                />
+              </View>
+            </View>
+          )}
+        </TouchableOpacity>
       </View>
-      {showDetails && (
-        <View>
-          <View
-            style={{ flexDirection: "row", alignItems: "center", height: 30 }}
-          >
-            <Text>Supply {currency(supply, { symbol: "" }).format()}</Text>
-          </View>
-          <View
-            style={{ flexDirection: "row", alignItems: "center", height: 30 }}
-          >
-            <Text>
-              Max Supply {currency(maxSupply, { symbol: "" }).format()}
-            </Text>
-          </View>
-          <View
-            style={{ flexDirection: "row", alignItems: "center", height: 30 }}
-          >
-            <Text>Market Cap </Text>
-            <FormattedPrice
-              color={COLOR_PALETTE.fontBlack}
-              size="small"
-              currencySymbol="USD"
-              value={marketCapUsd}
-            />
-          </View>
-        </View>
-      )}
-    </TouchableOpacity>
-  </View>
-);
+    );
+  }
+}
 
 const styles = (showDetails?: boolean) =>
   StyleSheet.create({

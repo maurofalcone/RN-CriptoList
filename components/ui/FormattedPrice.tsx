@@ -12,12 +12,17 @@ type PercentProps = {
 
 const FormattedPrice: FC<PercentProps> = (props) => {
   const { currencySymbol, value } = props;
-  return (
-    <View style={styles(props).container}>
-      <Text style={styles(props).price}>{`$ ${currency(value, {
+  const computedPrice = React.useMemo(
+    () =>
+      `$ ${currency(value, {
         separator: ",",
         symbol: "",
-      }).format()}`}</Text>
+      }).format()}`,
+    [value]
+  );
+  return (
+    <View style={styles(props).container}>
+      <Text style={styles(props).price}>{computedPrice}</Text>
       <Text style={styles(props).currency}>{currencySymbol}</Text>
     </View>
   );
