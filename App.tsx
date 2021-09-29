@@ -26,6 +26,7 @@ const App = () => {
               component={ToDoScreen}
               options={{
                 headerLeft: NavigatorHeader,
+                headerTitleAlign: "center",
               }}
             />
             <Stack.Screen
@@ -33,6 +34,7 @@ const App = () => {
               component={ListScreen}
               options={{
                 headerLeft: NavigatorHeader,
+                headerTitleAlign: "center",
               }}
             />
             <Stack.Screen
@@ -40,6 +42,7 @@ const App = () => {
               component={DetailScreen}
               options={{
                 headerLeft: NavigatorHeader,
+                headerTitleAlign: "center",
               }}
             />
             <Stack.Screen
@@ -47,12 +50,13 @@ const App = () => {
               component={WalletScreen}
               options={{
                 headerLeft: NavigatorHeader,
+                headerTitleAlign: "center",
               }}
             />
             <Stack.Screen
               name={ROUTES.Home}
               component={HomeScreen}
-              options={{ headerTitle: Logo }}
+              options={{ headerTitle: Logo, headerTitleAlign: "center" }}
             />
           </Stack.Navigator>
           <StatusBar style="auto" />

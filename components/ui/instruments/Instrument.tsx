@@ -6,13 +6,13 @@ import {
   Text,
   Platform,
 } from "react-native";
-import { isPositive } from "../../helpers/Checkers";
-import FormattedPrice from "./FormattedPrice";
-import Percent from "./Percent";
-import { COLOR_PALETTE } from "../../helpers/Constants";
-import { IInstrument } from "../../types/Instrument";
+import { isPositive } from "../../../helpers/Checkers";
+import FormattedPrice from "../labels/FormattedPrice";
+import Percent from "../labels/Percent";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
+import { IInstrument } from "../../../types/Instrument";
 import currency from "currency.js";
-import Card from "./Card";
+import Card from "../wrappers/Card";
 
 interface InstrumentProps
   extends ComponentProps<typeof TouchableOpacity>,

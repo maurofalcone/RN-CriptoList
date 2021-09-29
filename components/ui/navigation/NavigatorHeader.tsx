@@ -1,7 +1,7 @@
 import React from "react";
 import { StackHeaderLeftButtonProps } from "@react-navigation/stack/lib/typescript/src/types";
-import { GoBack } from "../icons";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import { GoBack } from "../../icons";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
 const NavigatorHeader: React.FC<StackHeaderLeftButtonProps> = ({

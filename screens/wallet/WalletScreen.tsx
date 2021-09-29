@@ -1,8 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../../types/Screens";
-import PartnersSection from "./PartnersSection";
-import AccountSection from "./AccountSection";
+import PartnersSection from "./sections/PartnersSection";
+import AccountSection from "./sections/AccountSection";
 import { NavigatorTabButton } from "../../components/ui";
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();

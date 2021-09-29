@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import GreenArrowUp from "../icons/GreenArrowUp";
-import RedArrowDown from "../icons/RedArrowDown";
+import GreenArrowUp from "../../icons/GreenArrowUp";
+import RedArrowDown from "../../icons/RedArrowDown";
 import currency from "currency.js";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 
 type PercentProps = {
   value: string;

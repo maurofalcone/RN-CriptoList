@@ -1,8 +1,8 @@
-import { COLOR_PALETTE } from "../../helpers/Constants";
 import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
-import { Card } from "../../components/ui";
+import { Card, PartnerCard } from "../../../components/ui";
 import React from "react";
-import { IPartner } from "../../types/Partner";
+import { IPartner } from "../../../types/Partner";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 
 const partnerList: IPartner[] = [
   {
@@ -83,7 +83,7 @@ const PartnersSection = () => {
       {partnerList && partnerList.length > 0 ? (
         <ScrollView>
           {React.Children.toArray(
-            partnerList.map((item) => <ListItem item={item} />)
+            partnerList.map((item) => <PartnerCard {...item} />)
           )}
         </ScrollView>
       ) : (

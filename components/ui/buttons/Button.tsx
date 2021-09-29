@@ -1,7 +1,7 @@
 import React, { FC, ComponentProps } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import LoadingOverlay from "./LoadingOverlay";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import LoadingOverlay from "../overlays/LoadingOverlay";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 
 const Button: FC<
   ComponentProps<typeof TouchableOpacity> & {

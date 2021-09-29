@@ -1,23 +1,23 @@
 import React, { useContext } from "react";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 import { StyleSheet, SafeAreaView, Text, Image } from "react-native";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 const AccountSection = () => {
   const context = useContext(AuthContext);
   const username = context?.loggedInUser || "-";
   return (
-    <SafeAreaView style={accountStyles.container}>
+    <SafeAreaView style={styles.container}>
       <Image
-        style={accountStyles.illustration}
-        source={require("../../assets/finish-illustration.png")}
+        style={styles.illustration}
+        source={require("../../../assets/finish-illustration.png")}
       />
-      <Text style={accountStyles.title}>Hello, {username}</Text>
+      <Text style={styles.title}>Hello, {username}</Text>
       <Text>Glad you are here, hope to see you soon.</Text>
     </SafeAreaView>
   );
 };
-const accountStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR_PALETTE.white,

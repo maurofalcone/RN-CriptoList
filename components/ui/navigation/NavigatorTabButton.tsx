@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, TouchableWithoutFeedback } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 
 const NavigatorTabButton = ({
   state,

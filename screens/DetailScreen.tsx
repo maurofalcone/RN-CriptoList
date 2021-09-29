@@ -1,7 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text, SafeAreaView } from "react-native";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 import { useQuery } from "react-query";
-import { Button, Instrument, LoadingOverlay } from "../components/ui";
+import {
+  Button,
+  ErrorOverlay,
+  Instrument,
+  LoadingOverlay,
+} from "../components/ui";
 import { COLOR_PALETTE, ROUTES } from "../helpers/Constants";
 import { DetailScreenRouteProps } from "../types/Screens";
 import { fetchItemById } from "../queries/Instruments/query";
@@ -28,12 +33,8 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
     return <LoadingOverlay />;
   }
 
-  if (isError) {
-    return (
-      <View>
-        <Text>{error && error.message}</Text>
-      </View>
-    );
+  if (isError && error) {
+    return <ErrorOverlay message={error.message} />;
   }
 
   return (

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 import currency from "currency.js";
 
 type PercentProps = {

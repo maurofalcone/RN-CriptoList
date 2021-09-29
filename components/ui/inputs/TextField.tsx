@@ -1,7 +1,7 @@
 import React, { FC, ComponentProps } from "react";
 import { Control, useController } from "react-hook-form";
 import { TextInput, StyleSheet, View, Text } from "react-native";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 
 interface TextFieldProps
   extends Omit<ComponentProps<typeof TextInput>, "onChangeText"> {
@@ -18,7 +18,7 @@ const TextField: FC<TextFieldProps> = ({
 }) => {
   const {
     field,
-    fieldState: { error, isDirty },
+    fieldState: { error },
   } = useController({ control, defaultValue: "", name });
   const hasError = error && error.message;
   return (

@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import { SafeAreaView, ActivityIndicator, StyleSheet } from "react-native";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 
 const LoadingOverlay: React.FC<ComponentProps<typeof ActivityIndicator>> = ({
   color = COLOR_PALETTE.primary,
@@ -8,9 +8,9 @@ const LoadingOverlay: React.FC<ComponentProps<typeof ActivityIndicator>> = ({
   ...rest
 }) => {
   return (
-    <View style={styles.loadingOverlay}>
+    <SafeAreaView style={styles.loadingOverlay}>
       <ActivityIndicator color={color} size={size} {...rest} />
-    </View>
+    </SafeAreaView>
   );
 };
 

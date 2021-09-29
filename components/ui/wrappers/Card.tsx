@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Platform } from "react-native";
-import { COLOR_PALETTE } from "../../helpers/Constants";
+import { COLOR_PALETTE } from "../../../helpers/Constants";
 
 const Card: React.FC = ({ children }) => (
   <View style={styles.mainWrapper}>{children}</View>

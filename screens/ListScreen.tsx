@@ -1,20 +1,19 @@
 import React, { useCallback } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   FlatList,
   SafeAreaView,
   RefreshControl,
 } from "react-native";
-import { Instrument } from "../components/ui";
+import { ErrorOverlay, Instrument } from "../components/ui";
 import { useQuery } from "react-query";
 import { fetchInstrumentList } from "../queries/Instruments/query";
 import { IInstrument } from "../types/Instrument";
 import { COLOR_PALETTE, ROUTES } from "../helpers/Constants";
 import { APIResponse } from "../types/Api";
 import { ListScreenRouteProps } from "../types/Screens";
-import LoadingOverlay from "../components/ui/LoadingOverlay";
+import LoadingOverlay from "../components/ui/overlays/LoadingOverlay";
 
 const ListScreen: React.FC<ListScreenRouteProps> = ({ navigation }) => {
   const {
@@ -55,12 +54,8 @@ const ListScreen: React.FC<ListScreenRouteProps> = ({ navigation }) => {
     return <LoadingOverlay />;
   }
 
-  if (isError) {
-    return (
-      <View>
-        <Text>{error && error.message}</Text>
-      </View>
-    );
+  if (isError && error) {
+    return <ErrorOverlay message={error.message} />;
   }
 
   return (
