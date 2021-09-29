@@ -5,3 +5,5 @@ export { default as Percent } from "./Percent";
 export { default as FormattedPrice } from "./FormattedPrice";
 export { default as LoadingOverlay } from "./LoadingOverlay";
 export { default as Card } from "./Card";
+export { default as NavigatorHeader } from "./NavigatorHeader";
+export { default as NavigatorTabButton } from "./NavigatorTabButton";

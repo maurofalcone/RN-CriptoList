@@ -7,7 +7,7 @@ const xml = `<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="ht
 </svg>
 `;
 
-const HeaderGoBackButton = () => {
+const GoBack = () => {
   return (
     <View style={{ padding: 7 }}>
       <SvgCss xml={xml} width={6} height={10} />
@@ -15,4 +15,4 @@ const HeaderGoBackButton = () => {
   );
 };
 
-export default HeaderGoBackButton;
+export default GoBack;

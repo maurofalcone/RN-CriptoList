@@ -6,18 +6,12 @@ import ToDoScreen from "./screens/ToDoScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ListScreen from "./screens/ListScreen";
 import DetailScreen from "./screens/DetailScreen";
-import WalletScreen from "./screens/WalletScreen";
-import { Logo, HeaderGoBackButton } from "./components/icons";
+import WalletScreen from "./screens/wallet/WalletScreen";
+import { Logo } from "./components/icons";
 import AuthContextProvider from "./context/AuthContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ROUTES } from "./helpers/Constants";
-
-/**
- * Use `HomeScreen` as the initial route
- * Replace the screen title with the `Logo` component
- *
- * 💯  Usage of TypeScript is a plus
- */
+import { NavigatorHeader } from "./components/ui";
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient();
@@ -31,28 +25,28 @@ const App = () => {
               name={ROUTES.ToDo}
               component={ToDoScreen}
               options={{
-                headerLeft: HeaderGoBackButton,
+                headerLeft: NavigatorHeader,
               }}
             />
             <Stack.Screen
               name={ROUTES.List}
               component={ListScreen}
               options={{
-                headerLeft: HeaderGoBackButton,
+                headerLeft: NavigatorHeader,
               }}
             />
             <Stack.Screen
               name={ROUTES.Detail}
               component={DetailScreen}
               options={{
-                headerLeft: HeaderGoBackButton,
+                headerLeft: NavigatorHeader,
               }}
             />
             <Stack.Screen
               name={ROUTES.Wallet}
               component={WalletScreen}
               options={{
-                headerLeft: HeaderGoBackButton,
+                headerLeft: NavigatorHeader,
               }}
             />
             <Stack.Screen

@@ -91,8 +91,8 @@ const ListScreen: React.FC<ListScreenRouteProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 8,
     backgroundColor: COLOR_PALETTE.grayBackground,
+    padding: 8,
   },
   loadingOverlay: {
     flex: 1,
