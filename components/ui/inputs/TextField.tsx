@@ -2,6 +2,7 @@ import React, { FC, ComponentProps } from "react";
 import { Control, useController } from "react-hook-form";
 import { TextInput, StyleSheet, View, Text } from "react-native";
 import { COLOR_PALETTE } from "../../../helpers/Constants";
+import { ErrorIcon } from "../../icons";
 
 interface TextFieldProps
   extends Omit<ComponentProps<typeof TextInput>, "onChangeText"> {
@@ -23,14 +24,25 @@ const TextField: FC<TextFieldProps> = ({
   const hasError = error && error.message;
   return (
     <View style={styles().wrapper}>
-      <TextInput
-        style={styles(hasError).inputContainer}
-        onChangeText={field.onChange}
-        value={field.value}
-        placeholder={placeholder}
-        placeholderTextColor={COLOR_PALETTE.lightGray}
-        {...rest}
-      />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          position: "relative",
+        }}
+      >
+        <TextInput
+          style={styles(hasError).inputContainer}
+          onChangeText={field.onChange}
+          value={field.value}
+          placeholder={placeholder}
+          placeholderTextColor={COLOR_PALETTE.lightGray}
+          {...rest}
+        />
+        {hasError && (
+          <ErrorIcon style={{ position: "absolute", right: 5, top: 1 }} />
+        )}
+      </View>
       {hasError && <Text style={styles().error}>{error.message}</Text>}
     </View>
   );
