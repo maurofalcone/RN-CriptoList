@@ -33,7 +33,7 @@ Contribute on theming the application, typescript implementarion and shared-comp
   {
     name: "Simple Q",
     url: "Not Released",
-    comments: `I was part of the frontend team, building an e-learning platform. Features developing and code refactor`,
+    comments: `I was part of the frontend team, building a level-user survey app using React Native, TailwindCSS, React-Native-Permissons, OneSignal, among others`,
   },
 ];
 
