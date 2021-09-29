@@ -41,6 +41,7 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
     control,
     handleSubmit,
     formState: { isDirty },
+    setValue,
   } = useForm<IUser>(formOptions as any);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [genericError, setGenericError] = useState<string>("");
@@ -56,10 +57,11 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
         username: data.username,
         password: data.password,
       });
-      console.log(response, "RESPONSE");
       if (response) {
         toggleLoading();
         navigation.navigate("List");
+        setValue("username", "");
+        setValue("password", "");
       } else {
         throw new Error("Invalid Credentials");
       }
