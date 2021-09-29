@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps, useMemo } from "react";
+import React, { ComponentProps } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -12,6 +12,7 @@ import Percent from "./Percent";
 import { COLOR_PALETTE } from "../../helpers/Constants";
 import { IInstrument } from "../../types/Instrument";
 import currency from "currency.js";
+import Card from "./Card";
 
 interface InstrumentProps
   extends ComponentProps<typeof TouchableOpacity>,
@@ -52,7 +53,7 @@ class Instrument extends React.PureComponent<InstrumentProps> {
     const formattedSupply = currency(supply, { symbol: "" }).format();
     const formattedMaxSupply = currency(maxSupply, { symbol: "" }).format();
     return (
-      <View style={styles().mainWrapper}>
+      <Card>
         <TouchableOpacity style={styles(showDetails).wrapper} {...rest}>
           <View>
             <View style={styles().groupsContainer}>
@@ -105,7 +106,7 @@ class Instrument extends React.PureComponent<InstrumentProps> {
               >
                 <Text>Market Cap </Text>
                 <FormattedPrice
-                  color={COLOR_PALETTE.fontBlack}
+                  color={COLOR_PALETTE.secondary}
                   size="small"
                   currencySymbol="USD"
                   value={marketCapUsd}
@@ -114,7 +115,7 @@ class Instrument extends React.PureComponent<InstrumentProps> {
             </View>
           )}
         </TouchableOpacity>
-      </View>
+      </Card>
     );
   }
 }

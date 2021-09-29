@@ -10,6 +10,7 @@ import WalletScreen from "./screens/WalletScreen";
 import { Logo } from "./components/ui";
 import AuthContextProvider from "./context/AuthContext";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ROUTES } from "./helpers/Constants";
 
 /**
  * Use `HomeScreen` as the initial route
@@ -25,13 +26,13 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="ToDo" component={ToDoScreen} />
-            <Stack.Screen name="List" component={ListScreen} />
-            <Stack.Screen name="Detail" component={DetailScreen} />
-            <Stack.Screen name="Wallet" component={WalletScreen} />
+          <Stack.Navigator initialRouteName={ROUTES.Home}>
+            <Stack.Screen name={ROUTES.ToDo} component={ToDoScreen} />
+            <Stack.Screen name={ROUTES.List} component={ListScreen} />
+            <Stack.Screen name={ROUTES.Detail} component={DetailScreen} />
+            <Stack.Screen name={ROUTES.Wallet} component={WalletScreen} />
             <Stack.Screen
-              name="Home"
+              name={ROUTES.Home}
               component={HomeScreen}
               options={{ headerTitle: Logo }}
             />

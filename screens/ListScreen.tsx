@@ -11,11 +11,10 @@ import { Instrument } from "../components/ui";
 import { useQuery } from "react-query";
 import { fetchInstrumentList } from "../queries/Instruments/query";
 import { IInstrument } from "../types/Instrument";
-import { COLOR_PALETTE } from "../helpers/Constants";
+import { COLOR_PALETTE, ROUTES } from "../helpers/Constants";
 import { APIResponse } from "../types/Api";
 import { ListScreenRouteProps } from "../types/Screens";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
-import useMemo from "react";
 
 /**
  * ToDo: Feed the list using fetching data from a RESTful API
@@ -42,7 +41,7 @@ const ListScreen: React.FC<ListScreenRouteProps> = ({ navigation }) => {
 
   const handleOnPress = useCallback(
     (id: string) => {
-      navigation.navigate("Detail", {
+      navigation.navigate(ROUTES.Detail, {
         id,
       });
     },
@@ -104,6 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 8,
+    backgroundColor: COLOR_PALETTE.grayBackground,
   },
   loadingOverlay: {
     flex: 1,

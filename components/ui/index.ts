@@ -7,3 +7,4 @@ export { default as GreenArrowUp } from "./GreenArrowUp";
 export { default as RedArrowDown } from "./RedArrowDown";
 export { default as FormattedPrice } from "./FormattedPrice";
 export { default as LoadingOverlay } from "./LoadingOverlay";
+export { default as Card } from "./Card";

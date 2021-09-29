@@ -9,14 +9,16 @@ export const COLOR_PALETTE = {
   white: "#FFFFFF",
   error: "#FF0000",
   darkGray: "#D1D5DB",
+  grayBackground: "#F8F8FA",
   lightGray: "#6B7280",
   black: "#000000",
-  fontBlack: "#0A132C",
+  secondary: "#0A132C",
 };
 
-export const ROUTES = {
-  Detail: "Detail",
-  List: "List",
-  ToDo: "ToDo",
-  Wallet: "Wallet",
-};
+export enum ROUTES {
+  Detail = "Detail",
+  List = "List",
+  ToDo = "ToDo",
+  Wallet = "Wallet",
+  Home = "Home",
+}

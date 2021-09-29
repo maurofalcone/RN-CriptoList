@@ -31,3 +31,8 @@ export type ListScreenRouteProps = {
 export type ToDoScreenRouteProps = {
   navigation: StackNavigationProp<RootStackParamList, "ToDo">;
 };
+
+export type BottomTabParamList = {
+  Account: undefined;
+  Partners: undefined;
+};

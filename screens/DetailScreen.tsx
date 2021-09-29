@@ -2,29 +2,16 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { useQuery } from "react-query";
 import { Button, Instrument, LoadingOverlay } from "../components/ui";
-import { COLOR_PALETTE } from "../helpers/Constants";
+import { COLOR_PALETTE, ROUTES } from "../helpers/Constants";
 import { DetailScreenRouteProps } from "../types/Screens";
 import { fetchItemById } from "../queries/Instruments/query";
 import { IInstrument } from "../types/Instrument";
 import { APIResponse } from "../types/Api";
-
-/**
- * ToDo: Feed the list using fetching data from a RESTful API
- *
- * API: COINCAP API 2.0
- * API Docs: https://api.coincap.io/v2/assets/{id}
- * API Example: https://docs.coincap.io/#f8869879-171f-4240-adfd-dd2947506adc
- *
- * 💯 Using axios great plus
- * 💯 Handle loading and error scenarios, always
- */
-
 interface DetailScreenProps extends DetailScreenRouteProps {
   id: string;
 }
 
 const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
-  /* ToDo: Get the id param from the route */
   const {
     data: response,
     isError,
@@ -66,7 +53,10 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
             rank={item.rank}
           />
           <View style={styles.btnContainer}>
-            <Button title="My Wallet" onPress={() => alert("Wallet")} />
+            <Button
+              title="My Wallet"
+              onPress={() => navigation.navigate(ROUTES.Wallet)}
+            />
           </View>
         </View>
       ) : (
@@ -79,7 +69,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLOR_PALETTE.white,
+    backgroundColor: COLOR_PALETTE.grayBackground,
     alignItems: "center",
     justifyContent: "flex-start",
   },
