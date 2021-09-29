@@ -16,13 +16,9 @@ import { IAuthContext } from "../types/Context";
 import { IUser } from "../types/User";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { COLOR_PALETTE } from "../helpers/Constants";
+import { COLOR_PALETTE, ROUTES } from "../helpers/Constants";
 import { Platform } from "react-native";
-/* 
-  Implement form using any user/pass combination 
-  Store data using React context
-  💯 Handling Sensitive Info and Secure Storage is a great plus
-*/
+
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .required("Name is required")
@@ -32,17 +28,13 @@ const validationSchema = Yup.object().shape({
     ),
   password: Yup.string().required("Password is required"),
 });
+
 const formOptions = {
   resolver: yupResolver(validationSchema),
   mode: "onSubmit",
   reValidateMode: "onChange",
-  defaultValues: {},
-  context: undefined,
   criteriaMode: "firstError",
   shouldFocusError: true,
-  shouldUnregister: false,
-  shouldUseNativeValidation: false,
-  delayError: undefined,
 };
 
 const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
@@ -57,9 +49,9 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
   const authContext = useContext(AuthContext) as IAuthContext;
   const watchUsername = useWatch({ control, name: "username" });
   const watchPassword = useWatch({ control, name: "password" });
+
   const onSubmit = async (data: IUser) => {
     try {
-      setGenericError("");
       toggleLoading();
       const { login } = authContext;
       const response = await login({
@@ -68,9 +60,8 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
       });
       if (response) {
         toggleLoading();
-        navigation.navigate("List");
-        setValue("username", "");
-        setValue("password", "");
+        navigation.navigate(ROUTES.List);
+        clearForm();
       } else {
         throw new Error("Invalid Credentials");
       }
@@ -84,11 +75,18 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
     setLoading((prevLoadingState) => !prevLoadingState);
   }, [isLoading]);
 
+  const clearForm = () => {
+    setGenericError("");
+    setValue("username", "");
+    setValue("password", "");
+  };
+
   const isSubmitDisabled = () => {
     const shouldDisable =
       !watchUsername || !watchPassword || isLoading || !isDirty;
     return shouldDisable;
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
