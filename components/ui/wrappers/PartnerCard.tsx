@@ -1,10 +1,27 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 import { COLOR_PALETTE } from "../../../helpers/Constants";
 import { IPartner } from "../../../types/Partner";
 import Card from "./Card";
 
 type PartnerCardProps = IPartner;
+
+const handleOpenLink = async (url: string) => {
+  try {
+    const canOpen = await Linking.canOpenURL(url);
+    if (canOpen) {
+      Linking.openURL(url);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const PartnerCard: React.FC<PartnerCardProps> = ({ name, comments, url }) => (
   <View style={styles.mainWrapper}>
@@ -18,7 +35,9 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ name, comments, url }) => (
         </View>
         <View style={styles.urlWrapper}>
           <Text>URL: </Text>
-          <Text style={styles.url}>{url}</Text>
+          <TouchableOpacity onPress={() => handleOpenLink(url)}>
+            <Text style={styles.url}>{url}</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Card>
@@ -26,11 +45,13 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ name, comments, url }) => (
 );
 
 const styles = StyleSheet.create({
-  mainWrapper: { margin: 5, maxHeight: 167 },
+  mainWrapper: {
+    marginVertical: 12,
+    justifyContent: "space-around",
+  },
   contentWrapper: {
     padding: 20,
     justifyContent: "space-around",
-    height: "100%",
   },
   name: {
     color: COLOR_PALETTE.primary,

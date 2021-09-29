@@ -101,6 +101,7 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
               name="username"
               placeholder="Enter your name"
               control={control}
+              testID={"usernameTextFieldId"}
             />
             <TextField
               name="password"
@@ -108,15 +109,20 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
               control={control}
               autoCapitalize="none"
               secureTextEntry
+              testID={"passwordTextFieldId"}
             />
           </View>
           <View style={styles.buttonContainer}>
-            <Text style={styles.errorText}>{genericError}</Text>
+            <Text testID="genericErrorId" style={styles.errorText}>
+              {genericError}
+            </Text>
             <Button
               isLoading={isLoading}
               title="Sign In"
               onPress={handleSubmit(onSubmit)}
               disabled={isSubmitDisabled()}
+              accessibilityLabel="Sign In"
+              testID="submitId"
             />
           </View>
         </Pressable>

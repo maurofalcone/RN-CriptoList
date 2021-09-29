@@ -1,5 +1,5 @@
-import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
-import { Card, PartnerCard } from "../../../components/ui";
+import { StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
+import { PartnerCard } from "../../../components/ui";
 import React from "react";
 import { IPartner } from "../../../types/Partner";
 import { COLOR_PALETTE } from "../../../helpers/Constants";
@@ -36,56 +36,21 @@ Contribute on theming the application, typescript implementarion and shared-comp
     comments: `I was part of the frontend team, building an e-learning platform. Features developing and code refactor`,
   },
 ];
-const PartnersSection = () => {
-  const ListItem = ({ item }: { item: IPartner }) => {
-    return (
-      <View style={{ margin: 5, maxHeight: 167 }}>
-        <Card>
-          <View
-            style={{
-              padding: 20,
-              justifyContent: "space-around",
-              height: "100%",
-            }}
-          >
-            <View style={{ flex: 0.5 }}>
-              <Text
-                style={{
-                  color: COLOR_PALETTE.primary,
-                  fontWeight: "700",
-                  fontSize: 16,
-                }}
-              >
-                {item.name}
-              </Text>
-            </View>
-            <View style={{ flex: 2 }}>
-              <Text>{item.comments}</Text>
-            </View>
-            <View
-              style={{ flexDirection: "row", flex: 0.5, alignItems: "center" }}
-            >
-              <Text>URL: </Text>
-              <Text style={{ fontSize: 16, color: COLOR_PALETTE.lightGray }}>
-                {item.url}
-              </Text>
-            </View>
-          </View>
-        </Card>
-      </View>
-    );
-  };
 
+const renderPartnerCard = ({ item }: { item: IPartner }) => (
+  <PartnerCard {...item} />
+);
+const PartnersSection = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Partners</Text>
       <Text style={styles.subtitle}>Here are some apps I was involved in:</Text>
       {partnerList && partnerList.length > 0 ? (
-        <ScrollView>
-          {React.Children.toArray(
-            partnerList.map((item) => <PartnerCard {...item} />)
-          )}
-        </ScrollView>
+        <FlatList
+          data={partnerList}
+          renderItem={renderPartnerCard}
+          keyExtractor={(item) => item.name}
+        />
       ) : (
         <Text>No Apps 🙈</Text>
       )}
@@ -97,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR_PALETTE.grayBackground,
-    padding: 30,
+    padding: 25,
     alignItems: "center",
     justifyContent: "center",
   },

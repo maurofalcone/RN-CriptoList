@@ -48,13 +48,21 @@ class Instrument extends React.PureComponent<InstrumentProps> {
       maxSupply = "0.00",
       marketCapUsd = "0.00",
       price,
+      disabled,
       ...rest
     } = this.props;
     const formattedSupply = currency(supply, { symbol: "" }).format();
     const formattedMaxSupply = currency(maxSupply, { symbol: "" }).format();
     return (
       <Card>
-        <TouchableOpacity style={styles(showDetails).wrapper} {...rest}>
+        <TouchableOpacity
+          accessible={!disabled}
+          accessibilityLabel="Tap to see more details"
+          accessibilityHint="Will navigate to view more details about this instrument"
+          style={styles(showDetails).wrapper}
+          disabled={disabled}
+          {...rest}
+        >
           <View>
             <View style={styles().groupsContainer}>
               <View style={styles().firstGroup}>
@@ -79,31 +87,13 @@ class Instrument extends React.PureComponent<InstrumentProps> {
           </View>
           {showDetails && (
             <View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  height: 30,
-                }}
-              >
+              <View style={styles().detailContainer}>
                 <Text>Supply {formattedSupply}</Text>
               </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  height: 30,
-                }}
-              >
+              <View style={styles().detailContainer}>
                 <Text>Max Supply {formattedMaxSupply}</Text>
               </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  height: 30,
-                }}
-              >
+              <View style={styles().detailContainer}>
                 <Text>Market Cap </Text>
                 <FormattedPrice
                   color={COLOR_PALETTE.secondary}
@@ -174,6 +164,11 @@ const styles = (showDetails?: boolean) =>
     position: {
       fontSize: 14,
       color: COLOR_PALETTE.lightGray,
+    },
+    detailContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      height: 30,
     },
   });
 
