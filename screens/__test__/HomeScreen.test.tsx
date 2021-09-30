@@ -56,7 +56,6 @@ it("should not trigger error for correct values", async () => {
 
 test("should save the logged in user", async () => {
   const wrapper = ({ children }: any) => (
-    // To-Do refactor to create a reusable wrapper.
     <AuthContextProvider>{children}</AuthContextProvider>
   );
   const { result } = renderHook(() => useContext(AuthContext), { wrapper });
@@ -68,7 +67,6 @@ test("should save the logged in user", async () => {
   expect(result.current?.loggedInUser).toBe("Mauro");
 });
 
-// To-Do: setup snapshot resolver for save snpashot in specific directory and ignore it on .gitignore file
 it("Home Screen renders correctly", () => {
   const tree = render(<HomeScreen navigation={{} as any} />).toJSON();
   expect(tree).toMatchSnapshot();

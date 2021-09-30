@@ -6,8 +6,6 @@ import {
   mockFetchInstruments,
 } from "../../../helpers/Test";
 
-// To-Do: setup snapshot resolver for save snpashot in specific directory and ignore it on .gitignore file
-
 it("Should get instrument list", async () => {
   const queryClient = new QueryClient();
 
