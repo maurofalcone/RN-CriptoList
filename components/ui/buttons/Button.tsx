@@ -3,12 +3,18 @@ import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import LoadingOverlay from "../overlays/LoadingOverlay";
 import { COLOR_PALETTE } from "../../../helpers/Constants";
 
-const Button: FC<
-  ComponentProps<typeof TouchableOpacity> & {
-    title: string;
-    isLoading?: boolean;
-  }
-> = ({ children, title, disabled = false, isLoading = false, ...rest }) => (
+interface ButtonProps extends ComponentProps<typeof TouchableOpacity> {
+  title: string;
+  isLoading?: boolean;
+}
+
+const Button: FC<ButtonProps> = ({
+  children,
+  title,
+  disabled = false,
+  isLoading = false,
+  ...rest
+}) => (
   <TouchableOpacity
     accessibilityRole="button"
     accessibilityState={{

@@ -3,14 +3,14 @@ import { StyleSheet, View, Text } from "react-native";
 import { COLOR_PALETTE } from "../../../helpers/Constants";
 import currency from "currency.js";
 
-type PercentProps = {
+type FormattedPriceProps = {
   value: string;
   currencySymbol: string;
   size?: "small" | "large";
   color?: string;
 };
 
-const FormattedPrice: FC<PercentProps> = (props) => {
+const FormattedPrice: FC<FormattedPriceProps> = (props) => {
   const { currencySymbol, value } = props;
   const computedPrice = React.useMemo(
     () =>
@@ -28,7 +28,7 @@ const FormattedPrice: FC<PercentProps> = (props) => {
   );
 };
 
-const styles = (props: PercentProps) =>
+const styles = (props: FormattedPriceProps) =>
   StyleSheet.create({
     container: {
       flexDirection: "row",

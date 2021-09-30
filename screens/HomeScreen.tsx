@@ -102,6 +102,12 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
     return shouldDisable;
   };
 
+  const focusPasswordField = () => {
+    if (passwordRef && passwordRef.current) {
+      passwordRef.current.focus();
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -120,11 +126,7 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
               placeholder="Enter your name"
               control={control}
               testID={"usernameTextFieldId"}
-              onSubmitEditing={() => {
-                if (passwordRef && passwordRef.current) {
-                  passwordRef.current.focus();
-                }
-              }}
+              onSubmitEditing={focusPasswordField}
             />
             <TextField
               myRef={passwordRef}

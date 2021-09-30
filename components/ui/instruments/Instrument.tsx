@@ -52,7 +52,9 @@ class Instrument extends React.PureComponent<InstrumentProps> {
       ...rest
     } = this.props;
     const formattedSupply = currency(supply, { symbol: "" }).format();
-    const formattedMaxSupply = currency(maxSupply, { symbol: "" }).format();
+    const formattedMaxSupply = currency(maxSupply || "0.00", {
+      symbol: "",
+    }).format();
     return (
       <Card>
         <TouchableOpacity
