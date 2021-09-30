@@ -3,6 +3,7 @@ import HomeScreen from "../HomeScreen";
 import { renderHook } from "@testing-library/react-hooks";
 import { render, fireEvent, act } from "react-native-testing-library";
 import AuthContextProvider, { AuthContext } from "../../context/AuthContext";
+import { navigatorWrapper } from "../../helpers/Tests";
 
 it("should not trigger error for correct values", async () => {
   const { getByTestId, queryByTestId } = render(
@@ -21,7 +22,9 @@ it("should not trigger error for correct values", async () => {
 });
 
 it("should trigger error due to exception", async () => {
-  const { getByTestId } = render(<HomeScreen navigation={{} as any} />);
+  const { getByTestId, queryByText } = render(
+    <HomeScreen navigation={{} as any} />
+  );
 
   fireEvent.changeText(getByTestId("usernameTextFieldId"), {
     obj: "this obj property will trigger the exception",
@@ -31,7 +34,9 @@ it("should trigger error due to exception", async () => {
     fireEvent.press(getByTestId("submitId"));
   });
 
-  expect(getByTestId("genericErrorId")).toBeTruthy();
+  setTimeout(() => {
+    expect(queryByText("Invalid Credentials")).toBeTruthy();
+  }, 1000);
 });
 
 it("should not trigger error for correct values", async () => {
@@ -50,7 +55,8 @@ it("should not trigger error for correct values", async () => {
 
 test("should save the logged in user", async () => {
   const wrapper = ({ children }: any) => (
-    <AuthContextProvider>{children}</AuthContextProvider> // To-Do refactor to create a reusable wrapper.
+    // To-Do refactor to create a reusable wrapper.
+    <AuthContextProvider>{children}</AuthContextProvider>
   );
   const { result } = renderHook(() => useContext(AuthContext), { wrapper });
 

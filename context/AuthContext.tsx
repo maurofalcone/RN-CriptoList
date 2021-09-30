@@ -10,6 +10,10 @@ const AuthContextProvider: FC = ({ children }) => {
   const login = async (params: IUser) => {
     try {
       setUser(params.username);
+      const isSecureStoreAvailable = await SecureStore.isAvailableAsync();
+      if (isSecureStoreAvailable) {
+        await SecureStore.setItemAsync(params.username, params.password);
+      }
       await SecureStore.setItemAsync(params.username, params.password);
       // fake login request
       return await new Promise((resolve) => {

@@ -6,7 +6,7 @@ import {
   Text,
   Platform,
 } from "react-native";
-import { isPositive } from "../../../helpers/Checkers";
+import { isPositive } from "../../../helpers/Validations";
 import FormattedPrice from "../labels/FormattedPrice";
 import Percent from "../labels/Percent";
 import { COLOR_PALETTE } from "../../../helpers/Constants";
