@@ -3,7 +3,6 @@ import HomeScreen from "../HomeScreen";
 import { renderHook } from "@testing-library/react-hooks";
 import { render, fireEvent, act } from "react-native-testing-library";
 import AuthContextProvider, { AuthContext } from "../../context/AuthContext";
-import { navigatorWrapper } from "../../helpers/Tests";
 
 it("should not trigger error for correct values", async () => {
   const { getByTestId, queryByTestId } = render(
