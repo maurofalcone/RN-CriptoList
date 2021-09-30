@@ -42,7 +42,7 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
     control,
     handleSubmit,
     formState: { isDirty },
-    setValue,
+    reset,
   } = useForm<IUser>(formOptions as any);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [genericError, setGenericError] = useState<string>("");
@@ -77,8 +77,7 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
 
   const clearForm = () => {
     setGenericError("");
-    setValue("username", "");
-    setValue("password", "");
+    reset();
   };
 
   const isSubmitDisabled = () => {
@@ -114,6 +113,7 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
               autoCapitalize="none"
               secureTextEntry
               testID={"passwordTextFieldId"}
+              onSubmitEditing={handleSubmit(onSubmit)}
             />
           </View>
           <View style={styles.buttonContainer}>
