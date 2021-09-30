@@ -143,6 +143,7 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
               onSubmitEditing={() => {
                 !isSubmitDisabled() && handleSubmit(onSubmit)();
               }}
+              returnKeyType="go"
             />
           </View>
           <View style={styles.buttonContainer}>
