@@ -78,6 +78,8 @@ exports[`Home Screen renders correctly 1`] = `
             }
           >
             <TextInput
+              accessibilityLabel="Username Input"
+              accessible={true}
               allowFontScaling={true}
               onChangeText={[Function]}
               placeholder="Enter your name"
@@ -116,7 +118,8 @@ exports[`Home Screen renders correctly 1`] = `
             }
           >
             <TextInput
-              accessibilityLabel=""
+              accessibilityLabel="Password Input"
+              accessible={true}
               allowFontScaling={true}
               autoCapitalize="none"
               onChangeText={[Function]}

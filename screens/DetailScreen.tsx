@@ -9,7 +9,7 @@ import {
 } from "../components/ui";
 import { COLOR_PALETTE, ROUTES } from "../helpers/Constants";
 import { DetailScreenRouteProps } from "../types/Screens";
-import { fetchItemById } from "../queries/Instruments/query";
+import { fetchInstrumentById } from "../queries/Instruments/query";
 import { IInstrument } from "../types/Instrument";
 import { APIResponse } from "../types/Api";
 interface DetailScreenProps extends DetailScreenRouteProps {
@@ -24,7 +24,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
     isLoading,
   } = useQuery<APIResponse<IInstrument>, { message: string }>(
     route.params.id,
-    () => fetchItemById(route.params.id),
+    () => fetchInstrumentById(route.params.id),
     { enabled: !!route.params.id }
   );
   const item = response?.data;

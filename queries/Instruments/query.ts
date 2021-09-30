@@ -6,7 +6,7 @@ export const fetchInstrumentList = async () => {
   return data;
 };
 
-export const fetchItemById = async (id: string) => {
+export const fetchInstrumentById = async (id: string) => {
   const { data } = await axios.get(`${API_URL}/${id}`);
   return data;
 };

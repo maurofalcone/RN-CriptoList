@@ -16,7 +16,9 @@ const handleOpenLink = async (url: string) => {
   try {
     const canOpen = await Linking.canOpenURL(url);
     if (canOpen) {
-      Linking.openURL(url);
+      Linking.openURL(url)
+        .then()
+        .catch((e) => console.log(e));
     }
   } catch (error) {
     console.log(error);
@@ -35,7 +37,13 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ name, comments, url }) => (
         </View>
         <View style={styles.urlWrapper}>
           <Text>URL: </Text>
-          <TouchableOpacity onPress={() => handleOpenLink(url)}>
+          <TouchableOpacity
+            accessible
+            accessibilityRole="link"
+            accessibilityLabel={`Go to ${name} project link`}
+            accessibilityHint="After tap on this link. Your browser will open it automatically"
+            onPress={() => handleOpenLink(url)}
+          >
             <Text style={styles.url}>{url}</Text>
           </TouchableOpacity>
         </View>
