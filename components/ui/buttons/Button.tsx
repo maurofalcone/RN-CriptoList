@@ -10,6 +10,10 @@ const Button: FC<
   }
 > = ({ children, title, disabled = false, isLoading = false, ...rest }) => (
   <TouchableOpacity
+    accessibilityRole="button"
+    accessibilityState={{
+      disabled: !!disabled,
+    }}
     disabled={disabled}
     style={styles(disabled).wrapper}
     {...rest}

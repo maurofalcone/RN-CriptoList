@@ -99,11 +99,15 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
           <View style={styles.inputsContainer}>
             <TextField
               name="username"
+              accessible
+              accessibilityLabel="Username Input"
               placeholder="Enter your name"
               control={control}
               testID={"usernameTextFieldId"}
             />
             <TextField
+              accessible
+              accessibilityLabel="Password Input"
               name="password"
               placeholder="Enter your passowrd"
               control={control}
@@ -117,11 +121,16 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
               {genericError}
             </Text>
             <Button
+              accessible
+              accessibilityState={{
+                disabled: isSubmitDisabled(),
+              }}
+              accessibilityHint="After you tapping on this login button. Your username and password will be validated and on successfull login you will be taken to the dashboard screen"
+              accessibilityLabel="Sign In"
               isLoading={isLoading}
               title="Sign In"
               onPress={handleSubmit(onSubmit)}
               disabled={isSubmitDisabled()}
-              accessibilityLabel="Sign In"
               testID="submitId"
             />
           </View>

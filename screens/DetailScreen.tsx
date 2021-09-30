@@ -43,6 +43,9 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
         <View style={styles.contentWrapper}>
           <Instrument
             disabled
+            accessibilityState={{
+              disabled: true,
+            }}
             name={item.name}
             price={item.priceUsd}
             changePercentage={item.changePercent24Hr}
@@ -55,6 +58,9 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ navigation, route }) => {
           />
           <View style={styles.btnContainer}>
             <Button
+              accessible
+              accessibilityLabel="Go to my wallet screen"
+              accessibilityHint="When you tap on my wallet button you will be taken to my wallet screen"
               title="My Wallet"
               onPress={() => navigation.navigate(ROUTES.Wallet)}
             />

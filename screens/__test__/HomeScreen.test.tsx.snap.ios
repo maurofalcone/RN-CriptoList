@@ -116,6 +116,7 @@ exports[`Home Screen renders correctly 1`] = `
             }
           >
             <TextInput
+              accessibilityLabel=""
               allowFontScaling={true}
               autoCapitalize="none"
               onChangeText={[Function]}
@@ -162,7 +163,14 @@ exports[`Home Screen renders correctly 1`] = `
           
         </Text>
         <View
+          accessibilityHint="After you tapping on this login button. Your username and password will be validated and on successfull login you will be taken to the dashboard screen"
           accessibilityLabel="Sign In"
+          accessibilityRole="button"
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
           accessible={true}
           focusable={true}
           onClick={[Function]}

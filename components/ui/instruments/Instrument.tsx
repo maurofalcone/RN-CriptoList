@@ -56,7 +56,10 @@ class Instrument extends React.PureComponent<InstrumentProps> {
     return (
       <Card>
         <TouchableOpacity
-          accessible={!disabled}
+          accessibilityRole="button"
+          accessibilityState={{
+            disabled: !!disabled,
+          }}
           accessibilityLabel="Tap to see more details"
           accessibilityHint="Will navigate to view more details about this instrument"
           style={styles(showDetails).wrapper}

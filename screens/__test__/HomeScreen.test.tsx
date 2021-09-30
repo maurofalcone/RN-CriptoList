@@ -66,6 +66,7 @@ test("should save the logged in user", async () => {
   expect(result.current?.loggedInUser).toBe("Mauro");
 });
 
+// To-Do: setup snapshot resolver for save snpashot in specific directory and ignore it on .gitignore file
 it("Home Screen renders correctly", () => {
   const tree = render(<HomeScreen navigation={{} as any} />).toJSON();
   expect(tree).toMatchSnapshot();
