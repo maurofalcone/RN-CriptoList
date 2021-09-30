@@ -117,37 +117,16 @@ class Instrument extends React.PureComponent<InstrumentProps> {
 
 const styles = (showDetails?: boolean) =>
   StyleSheet.create({
-    mainWrapper: {
-      borderRadius: 8,
-      backgroundColor: COLOR_PALETTE.white,
-      ...Platform.select({
-        ios: {
-          shadowColor: COLOR_PALETTE.black,
-          shadowOpacity: 0.1,
-          shadowRadius: 2,
-          shadowOffset: {
-            width: 1,
-            height: 1,
-          },
-        },
-        android: {
-          elevation: 1,
-        },
-      }),
-    },
     wrapper: {
       height: showDetails ? 195 : 100,
-      width: 354,
       borderRadius: 6,
       justifyContent: !showDetails ? "center" : "space-around",
-      alignItems: "flex-start",
       padding: 15,
     },
     groupsContainer: {
       flexDirection: "row",
       height: 25,
       justifyContent: "space-between",
-      width: "100%",
     },
     firstGroup: {
       flexDirection: "row",

@@ -127,6 +127,8 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
               control={control}
               testID={"usernameTextFieldId"}
               onSubmitEditing={focusPasswordField}
+              blurOnSubmit={false}
+              returnKeyType="next"
             />
             <TextField
               myRef={passwordRef}
@@ -138,7 +140,9 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
               autoCapitalize="none"
               secureTextEntry
               testID={"passwordTextFieldId"}
-              onSubmitEditing={handleSubmit(onSubmit)}
+              onSubmitEditing={() => {
+                !isSubmitDisabled() && handleSubmit(onSubmit)();
+              }}
             />
           </View>
           <View style={styles.buttonContainer}>
