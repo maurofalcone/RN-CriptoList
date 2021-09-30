@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps } from "react";
+import React, { FC, ComponentProps, Ref } from "react";
 import { Control, useController } from "react-hook-form";
 import { TextInput, StyleSheet, View, Text } from "react-native";
 import { COLOR_PALETTE } from "../../../helpers/Constants";
@@ -8,6 +8,7 @@ interface TextFieldProps
   extends Omit<ComponentProps<typeof TextInput>, "onChangeText"> {
   name: string;
   control: Control<any>;
+  myRef?: React.LegacyRef<TextInput> | undefined;
 }
 
 const TextField: FC<TextFieldProps> = ({
@@ -15,6 +16,7 @@ const TextField: FC<TextFieldProps> = ({
   value,
   name,
   control,
+  myRef,
   ...rest
 }) => {
   const {
@@ -32,6 +34,7 @@ const TextField: FC<TextFieldProps> = ({
         }}
       >
         <TextInput
+          ref={myRef}
           style={styles(hasError).inputContainer}
           onChangeText={field.onChange}
           value={field.value}

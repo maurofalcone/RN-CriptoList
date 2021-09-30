@@ -1,4 +1,11 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, {
+  Ref,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useForm, useWatch } from "react-hook-form";
 import {
   Keyboard,
@@ -18,6 +25,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { COLOR_PALETTE, ROUTES } from "../helpers/Constants";
 import { Platform } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -46,6 +54,8 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
   } = useForm<IUser>(formOptions as any);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [genericError, setGenericError] = useState<string>("");
+  let usernameRef: any = useRef<Ref<TextInput>>();
+  let passwordRef: any = useRef<Ref<TextInput>>();
   const authContext = useContext(AuthContext) as IAuthContext;
   const watchUsername = useWatch({ control, name: "username" });
   const watchPassword = useWatch({ control, name: "password" });
@@ -70,6 +80,12 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
       setGenericError(() => error.message);
     }
   };
+
+  useEffect(() => {
+    if (usernameRef && usernameRef.current) {
+      usernameRef.current.focus();
+    }
+  }, [usernameRef]);
 
   const toggleLoading = useCallback(() => {
     setLoading((prevLoadingState) => !prevLoadingState);
@@ -97,14 +113,21 @@ const HomeScreen: React.FC<HomeScreenRouteProps> = ({ navigation }) => {
           <Text></Text>
           <View style={styles.inputsContainer}>
             <TextField
+              myRef={usernameRef}
               name="username"
               accessible
               accessibilityLabel="Username Input"
               placeholder="Enter your name"
               control={control}
               testID={"usernameTextFieldId"}
+              onSubmitEditing={() => {
+                if (passwordRef && passwordRef.current) {
+                  passwordRef.current.focus();
+                }
+              }}
             />
             <TextField
+              myRef={passwordRef}
               accessible
               accessibilityLabel="Password Input"
               name="password"
@@ -151,6 +174,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     marginBottom: 12,
+    textAlign: "center",
   },
   inputsContainer: {
     height: 150,
